@@ -3,6 +3,16 @@
 args = ARGV
 puts "You ran Hyde with these arguments: #{args}"
 
-# ##############
-# Your code here
-# ##############
+# ARGV[0] => new => run method to implement structure into ARGV[1]
+# ARGV[1] => /path/to/the/site
+
+#fill directory with appropriate files and directories
+#output
+#source
+#|--css
+#|  |--main.css
+#|--index.markdown
+#|--pages
+#|  |index.markdown
+#|__posts
+    #|2016-02-20-welcome-to-hyde.markdown
