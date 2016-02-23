@@ -11,17 +11,17 @@ class StructureTest < Minitest::Test
 
   def setup
     @structure = Structure.new
-    @test_path = Dir.home
-    @file_path = "test_path"
+    @test_path = File.expand_path(__dir__)
+    @file_path = "#{test_path}/test_files"
   end
 
   def test_when_new_is_argv0_it_creates_new_file_structure
 
-    if Dir.exist?("#{file_path}")
-      FileUtils.remove_dir("#{file_path}")
+    if Dir.exist?(file_path)
+      FileUtils.remove_dir(file_path)
     end
 
-    structure.create_tree("#{file_path}")
+    structure.create_tree(file_path)
     assert Dir.exist?("#{file_path}/source")
     assert Dir.exist?("#{file_path}/source/css")
     assert Dir.exist?("#{file_path}/source/pages")
@@ -30,11 +30,11 @@ class StructureTest < Minitest::Test
 
   def test_when_create_tree_is_called_the_files_are_created
 
-    if Dir.exist?("#{file_path}")
-      FileUtils.remove_dir("#{file_path}")
+    if Dir.exist?(file_path)
+      FileUtils.remove_dir(file_path)
     end
 
-    structure.create_tree("#{file_path}")
+    structure.create_tree(file_path)
     assert File.exist?("#{file_path}/source/css/main.css")
     assert File.exist?("#{file_path}/source/index.md")
     assert File.exist?("#{file_path}/source/about.md")
