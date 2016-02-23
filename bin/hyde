@@ -1,15 +1,14 @@
-require_relative "../lib/hyde.rb"
 #!/usr/bin/env ruby
+require_relative '../lib/hyde'
 
 query = ARGV[0]
 file_path = ARGV[1]
 # puts "You ran Hyde with these arguments: #{args}"
+hyde = Hyde.new
 
-if query == "new"
-  Hyde.new.create_tree(file_path)
-else
-  puts "Invalid Input"
-end
+  if query == "new"
+    hyde.create_tree(file_path)
+  end
 
 # ARGV[0] => new => run method to implement structure into ARGV[1]
 # ARGV[1] => /path/to/the/site
