@@ -1,4 +1,4 @@
-class Hyde
+class Structure
 
   def create_tree(file_path)
     if Dir.exist?("#{file_path}")
@@ -9,6 +9,8 @@ class Hyde
       create_files(file_path)
     end
   end
+
+  
 
   def create_dirs(file_path)
     Dir.mkdir("#{file_path}/output")

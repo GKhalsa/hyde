@@ -1,25 +1,15 @@
 #!/usr/bin/env ruby
-require_relative '../lib/hyde'
+require_relative '../lib/structure'
 
 query = ARGV[0]
 file_path = ARGV[1]
-# puts "You ran Hyde with these arguments: #{args}"
-hyde = Hyde.new
+structure = Structure.new
+output = Output.new
 
   if query == "new"
-    hyde.create_tree(file_path)
+    structure.create_tree(file_path)
+  elsif query == "build"
+    output.build_html
+  else
+    "Invalid Commmand"
   end
-
-# ARGV[0] => new => run method to implement structure into ARGV[1]
-# ARGV[1] => /path/to/the/site
-
-#fill directory with appropriate files and directories
-#output
-#source
-#|--css
-#|  |--main.css
-#|--index.markdown
-#|--pages
-#|  |index.markdown
-#|__posts
-    #|2016-02-20-welcome-to-hyde.markdown
