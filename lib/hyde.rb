@@ -17,7 +17,7 @@ class Hyde
     File.new("#{file_path}/source/css/main.css", "w+")
     File.new("#{file_path}/source/index.md", "w+")
     File.new("#{file_path}/source/about.md", "w+")
-    # File.new("file_path/source/posts/welcome_to_hyde.md")
+    File.new("#{file_path}/source/posts/welcome_to_hyde.md", "w+")
   end
 
 end
