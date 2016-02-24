@@ -44,4 +44,14 @@ class StructureTest < Minitest::Test
   def test_argument_error_activates_when_directories_previously_exist
     assert_raises(ArgumentError) { structure.create_tree("#{file_path}") }
   end
+
+  def test_new_post_creates_correctly_formatted_md_file
+   if Dir.exist?(file_path)
+     FileUtils.remove_dir(file_path)
+   end
+   structure.create_tree(file_path)
+   structure.create_post(file_path, ["Juicy", "Post"])
+   start_text =  "# *Juicy Post*\n\nYour content here"
+   assert_equal start_text, File.read("#{file_path}/source/posts/juicy_post.md")
+ end
 end
