@@ -5,7 +5,9 @@ require 'fileutils'
 class Output
 
   def build(file_path)
-    build_output_tree(file_path)
+    if !File.directory?("#{file_path}/output/pages")
+      build_output_tree(file_path)
+    end
     build_html(file_path)
     copy_files(file_path)
   end
@@ -27,14 +29,12 @@ class Output
       end
   end
 
-
   def build_html(file_path)
      Dir.glob("#{file_path}/**/*.md") do |md_file|
       html = convert_html(md_file)
       md_file_html = md_file.gsub(/.md/, ".html").gsub(/source/, "output")
       File.write(md_file_html, html)
     end
-
   end
 
   def convert_html(file_path)

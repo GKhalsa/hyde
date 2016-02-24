@@ -12,5 +12,5 @@ output = Output.new
   elsif query == "build"
     output.build(file_path)
   else
-    "Invalid Commmand"
+    puts "Invalid Commmand"
   end
