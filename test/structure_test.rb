@@ -51,7 +51,7 @@ class StructureTest < Minitest::Test
     end
     structure.create_tree(file_path)
     structure.create_post(file_path, "Juicy Post")
-    start_text =  "# Juicy Post\n\nYour content here"
+    start_text =  "# *Juicy Post*\n\nYour content here"
     assert_equal start_text, File.read("#{file_path}/source/posts/juicy_post.md")
   end
 

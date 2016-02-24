@@ -32,7 +32,7 @@ class Structure
   end
 
   def create_post_content(file_path, post_title)
-    contents = "# #{post_title}\n\nYour content here"
+    contents = "# *#{post_title}*\n\nYour content here"
     File.write("#{file_path}/source/posts/#{post_title.gsub(" ", "_")}.md", contents)
   end
 end
