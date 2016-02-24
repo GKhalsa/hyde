@@ -5,7 +5,7 @@ require 'fileutils'
 class Output
 
   def build(file_path)
-    if !File.directory?("#{file_path}/output/pages")
+    unless File.directory?("#{file_path}/output/pages")
       build_output_tree(file_path)
     end
     build_html(file_path)
