@@ -4,13 +4,17 @@ require_relative '../lib/output'
 
 query = ARGV[0]
 file_path = ARGV[1]
+post_title = ARGV[2..-1]
 structure = Structure.new
 output = Output.new
 
-  if query == "new"
+  case query
+  when "new"
     structure.create_tree(file_path)
-  elsif query == "build"
+  when "build"
     output.build(file_path)
+  when "post"
+    structure.create_post(file_path, post_title)
   else
     puts "Invalid Commmand"
   end
