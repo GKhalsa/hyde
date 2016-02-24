@@ -37,7 +37,7 @@ class StructureTest < Minitest::Test
     structure.create_tree(file_path)
     assert File.exist?("#{file_path}/source/css/main.css")
     assert File.exist?("#{file_path}/source/index.md")
-    assert File.exist?("#{file_path}/source/about.md")
+    assert File.exist?("#{file_path}/source/pages/about.md")
     assert File.exist?("#{file_path}/source/posts/welcome_to_hyde.md")
   end
 

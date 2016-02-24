@@ -54,9 +54,9 @@ class OutputTest < Minitest::Test
     assert Dir.exist?("#{file_path}/output/pages")
     assert Dir.exist?("#{file_path}/output/posts")
 
-    assert File.exist?("#{file_path}/output/css/main.css")
+
     assert File.exist?("#{file_path}/output/index.html")
-    assert File.exist?("#{file_path}/output/about.html")
+    assert File.exist?("#{file_path}/output/pages/about.html")
     assert File.exist?("#{file_path}/output/posts/welcome_to_hyde.html")
    end
 
@@ -64,12 +64,32 @@ class OutputTest < Minitest::Test
     if Dir.exist?(file_path)
       FileUtils.remove_dir(file_path)
     end
+
     structure.create_tree(file_path)
-    text = "# Some Markdown*"
-    File.write("#{file_path}/source/about.md", text)
     output.build_output_tree(file_path)
+    text = "# Some Markdown*"
+    File.write("#{file_path}/source/pages/about.md", text)
+    File.write("#{file_path}/source/index.md", text)
+    File.write("#{file_path}/source/posts/welcome_to_hyde.md", text)
     output.build_html(file_path)
-    assert_equal "ba", File.read("#{file_path}/output/about.html")
+
+    assert_equal "<h1 id=\"some-markdown\">Some Markdown*</h1>
+", File.read("#{file_path}/output/pages/about.html")
+    assert_equal "<h1 id=\"some-markdown\">Some Markdown*</h1>
+", File.read("#{file_path}/output/index.html")
+    assert_equal "<h1 id=\"some-markdown\">Some Markdown*</h1>
+", File.read("#{file_path}/output/posts/welcome_to_hyde.html")
+  end
+
+  def test_transfering_non_md_files_to_output
+    if Dir.exist?(file_path)
+      FileUtils.remove_dir(file_path)
+    end
+
+    structure.create_tree(file_path)
+    output.build_output_tree(file_path)
+    output.copy_files(file_path)
+    assert File.exist?("#{file_path}/output/css/main.css")
   end
 
 
