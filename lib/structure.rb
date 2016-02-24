@@ -27,12 +27,12 @@ class Structure
   end
 
   def create_post(file_path, post_title)
-    File.new("#{file_path}/source/posts/#{post_title.join("_")}.md", "w+")
+    File.new("#{file_path}/source/posts/#{post_title.downcase.gsub(" ","_")}.md", "w+")
     create_post_content(file_path, post_title)
   end
 
   def create_post_content(file_path, post_title)
-    contents = "##{post_title.join("_")} #Juicy Post\n\nYour content here"
-    File.write("#{file_path}/source/posts/#{post_title.join("_")}.md", contents)
+    contents = "# #{post_title}\n\nYour content here"
+    File.write("#{file_path}/source/posts/#{post_title.gsub(" ", "_")}.md", contents)
   end
 end
