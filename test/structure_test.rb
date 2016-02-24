@@ -26,6 +26,8 @@ class StructureTest < Minitest::Test
     assert Dir.exist?("#{file_path}/source/css")
     assert Dir.exist?("#{file_path}/source/pages")
     assert Dir.exist?("#{file_path}/source/posts")
+    assert Dir.exist?("#{file_path}/source/media")
+    assert Dir.exist?("#{file_path}/source/layouts")
   end
 
   def test_when_create_tree_is_called_the_files_are_created
@@ -39,6 +41,7 @@ class StructureTest < Minitest::Test
     assert File.exist?("#{file_path}/source/index.md")
     assert File.exist?("#{file_path}/source/pages/about.md")
     assert File.exist?("#{file_path}/source/posts/welcome_to_hyde.md")
+    assert File.exist?("#{file_path}/source/layouts/default.html.erb")
   end
 
   def test_argument_error_activates_when_directories_previously_exist

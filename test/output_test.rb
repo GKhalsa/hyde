@@ -39,7 +39,7 @@ class OutputTest < Minitest::Test
     text = "# Some Markdown*"
     File.write("#{file_path}/source/about.md", text)
      assert_equal "<h1 id=\"some-markdown\">Some Markdown*</h1>
-", output.convert_html("#{file_path}/source/about.md")
+", output.convert_html_from_markdown("#{file_path}/source/about.md")
   end
 
   def test_builds_output_structure
@@ -71,7 +71,7 @@ class OutputTest < Minitest::Test
     File.write("#{file_path}/source/pages/about.md", text)
     File.write("#{file_path}/source/index.md", text)
     File.write("#{file_path}/source/posts/welcome_to_hyde.md", text)
-    output.build_html(file_path)
+    output.build_html_files(file_path)
 
     assert_equal "<h1 id=\"some-markdown\">Some Markdown*</h1>
 ", File.read("#{file_path}/output/pages/about.html")
@@ -88,7 +88,7 @@ class OutputTest < Minitest::Test
 
     structure.create_tree(file_path)
     output.build_output_tree(file_path)
-    output.copy_files(file_path)
+    output.copy_non_markdown_files(file_path)
     assert File.exist?("#{file_path}/output/css/main.css")
   end
 
