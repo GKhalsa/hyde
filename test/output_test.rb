@@ -61,6 +61,15 @@ class OutputTest < Minitest::Test
    end
 
   def test_takes_markdown_files_converts_to_html_and_writes_to_html_file_in_output
+    if Dir.exist?(file_path)
+      FileUtils.remove_dir(file_path)
+    end
+    structure.create_tree(file_path)
+    text = "# Some Markdown*"
+    File.write("#{file_path}/source/about.md", text)
+    output.build_output_tree(file_path)
+    output.build_html(file_path)
+    assert_equal "ba", File.read("#{file_path}/output/about.html")
   end
 
 

@@ -1,4 +1,5 @@
 require 'kramdown'
+require 'pry'
 
 class Output
 
@@ -12,7 +13,14 @@ class Output
     File.new("#{file_path}/output/posts/welcome_to_hyde.html", "w+")
   end
 
-  
+  def build_html(file_path)
+     Dir.glob("#{file_path}/source/*.md") do |md_file|
+      html = convert_html(md_file)
+      md_file = md_file.gsub(/.md/, ".html")
+      File.write(md_file, "Hello")
+    end
+
+  end
 
   def convert_html(file_path)
     markdown_text = File.read(file_path)
