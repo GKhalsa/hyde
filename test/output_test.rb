@@ -144,11 +144,13 @@ class OutputTest < Minitest::Test
     structure.create_tree(file_path)
     output.build_output_tree(file_path)
     haml_text = File.read("hamltest.haml")
-    http_text = File.read("htmltest.html")
+    html_text = File.read("htmltest.html")
 
-    File.write("#{file_path}/source/sass/cool_format.sass", sass_text)
+    File.write("#{file_path}/source/posts/sweet_post.haml", haml_text)
 
-    output.convert_sass_to_css(file_path)
-    assert_equal css_text, File.read("#{file_path}/output/css/cool_format.css")
+    output.convert_haml_to_html(file_path)
+    assert_equal html_text, File.read("#{file_path}/output/posts/sweet_post.html")
+  end
 
+  
 end
