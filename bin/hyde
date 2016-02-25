@@ -25,8 +25,8 @@ output = Output.new
       end
     end
   when "publish"
-    `cd #{file_path}/output/`
-    binding.pry
+    puts `cd #{file_path}/output/ && pwd`
+    puts `pwd`
     `git add . `
     `git commit -m 'updated'`
     `git push -u origin master`
