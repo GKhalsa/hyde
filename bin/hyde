@@ -1,13 +1,15 @@
 #!/usr/bin/env ruby
+require 'filewatcher'
 require_relative '../lib/structure'
 require_relative '../lib/output'
+# require_relative '../lib/filewatcher'
 
 query = ARGV[0]
 file_path = ARGV[1]
 post_title = ARGV[2..-1]
 structure = Structure.new
 output = Output.new
-
+# file_watcher = Filewatcher.new
   case query
   when "new"
     structure.create_tree(file_path)
@@ -15,6 +17,24 @@ output = Output.new
     output.build(file_path)
   when "post"
     structure.create_post(file_path, post_title)
+  when "watchfs"
+    # file_watcher.watch_file(file_path)
+    FileWatcher.new(["#{file_path}"]).watch() do |filename, event|
+      if(event == :changed)
+        `bin/hyde build #{file_path}`
+        # puts "Your build has been updated"
+      end
+      if(event == :delete)
+        `bin/hyde build file_path`
+        puts "Your build has been updated" #+ filename
+      end
+      if(event == :new)
+        `bin/hyde build file_path`
+        puts "Your build has been updated" #+ filename
+      end
+    end
   else
     puts "Invalid Commmand"
   end
+
+#######################################################################

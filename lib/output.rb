@@ -13,6 +13,8 @@ class Output
   end
 
   def build_output_tree(file_path)
+    # pwd = `pwd`
+    # binding.pry
     %w(css pages posts media).each do |dir|
       Dir.mkdir("#{file_path}/output/#{dir}")
     end
