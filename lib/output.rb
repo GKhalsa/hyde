@@ -2,6 +2,7 @@ require 'kramdown'
 require 'pry'
 require 'fileutils'
 require 'erb'
+require 'middleman'
 
 class Output
   def build(file_path)
@@ -12,9 +13,13 @@ class Output
     copy_non_markdown_files(file_path)
   end
 
+  def push_to_github_pages(file_path)
+    `#{file_path}/output/ git add . `
+    `#{file_path}/output/ git commit -m 'auto-push'`
+    `#{file_path}/output/ git push -u origin master`
+  end
+
   def build_output_tree(file_path)
-    # pwd = `pwd`
-    # binding.pry
     %w(css pages posts media).each do |dir|
       Dir.mkdir("#{file_path}/output/#{dir}")
     end
@@ -43,6 +48,14 @@ class Output
     erb_template = File.read("#{file_path}/source/layouts/default.html.erb")
     ERB.new(erb_template).result(binding)
   end
+
+  # def convert_sass_to_css(file_path)
+  #     Dir.glob("#{file_path}/**/*.sass") do |sass_file_path|
+  #       sass_text = File.read(sass_file_path)
+  #       Sass::CSS.new(sass_text).to_css
+  #       css.file_path = sass_file_path.gsub(/.sass/, ".css").sub(/source/, "output").sub(/sass/, "css")
+  #       File.write(css.file_path, sass_text)
+  # end
 
 
   def convert_html_from_markdown(file_path)

@@ -16,7 +16,7 @@ class Structure
     %w(output source).each do |dir|
       Dir.mkdir("#{file_path}/#{dir}")
     end
-    %w(css pages posts media layouts).each do |dir|
+    %w(css sass pages posts media layouts).each do |dir|
       Dir.mkdir("#{file_path}/source/#{dir}")
     end
   end
