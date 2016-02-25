@@ -2,7 +2,7 @@ require 'kramdown'
 require 'pry'
 require 'fileutils'
 require 'erb'
-require 'middleman'
+require 'sass'
 
 class Output
   def build(file_path)
@@ -10,14 +10,15 @@ class Output
       build_output_tree(file_path)
     end
     build_html_files(file_path)
+    convert_sass_to_css(file_path)
     copy_non_markdown_files(file_path)
   end
 
-  def push_to_github_pages(file_path)
-    `#{file_path}/output/ git add . `
-    `#{file_path}/output/ git commit -m 'auto-push'`
-    `#{file_path}/output/ git push -u origin master`
-  end
+  # def push_to_github_pages(file_path)
+  #   `#{file_path}/output/ git add . `
+  #   `#{file_path}/output/ git commit -m 'auto-push'`
+  #   `#{file_path}/output/ git push -u origin master`
+  # end
 
   def build_output_tree(file_path)
     %w(css pages posts media).each do |dir|
@@ -29,7 +30,7 @@ class Output
   end
 
   def copy_non_markdown_files(file_path)
-    Dir.glob("#{file_path}/source/**/*/*[^.md][^.erb]") do |file|
+    Dir.glob("#{file_path}/source/**/*/*[^.md][^.erb][^.sass]") do |file|
        path_to_output_folder = file.gsub(/source/, "output")
        FileUtils.cp(file, path_to_output_folder)
       end
@@ -49,13 +50,16 @@ class Output
     ERB.new(erb_template).result(binding)
   end
 
-  # def convert_sass_to_css(file_path)
-  #     Dir.glob("#{file_path}/**/*.sass") do |sass_file_path|
-  #       sass_text = File.read(sass_file_path)
-  #       Sass::CSS.new(sass_text).to_css
-  #       css.file_path = sass_file_path.gsub(/.sass/, ".css").sub(/source/, "output").sub(/sass/, "css")
-  #       File.write(css.file_path, sass_text)
-  # end
+  def convert_sass_to_css(file_path)
+      Dir.glob("#{file_path}/**/*.sass") do |sass_file_path|
+        template = File.read(sass_file_path)
+        sass_engine = Sass::Engine.new(template)
+        output = sass_engine.to_css
+        binding.pry
+        css_file_path = sass_file_path.sub(/source/, "output").gsub(/sass/, "css")
+        File.write(css_file_path, output)
+      end
+  end
 
 
   def convert_html_from_markdown(file_path)
