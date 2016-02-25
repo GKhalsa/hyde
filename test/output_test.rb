@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/structure'
@@ -127,8 +129,8 @@ class OutputTest < Minitest::Test
 
     structure.create_tree(file_path)
     output.build_output_tree(file_path)
-    sass_text = File.read("sasstest.sass")
-    css_text = File.read("csstest.css")
+    sass_text = File.read("./test/sasstest.sass")
+    css_text = File.read("./test/csstest.css")
 
     File.write("#{file_path}/source/sass/cool_format.sass", sass_text)
 
@@ -143,8 +145,8 @@ class OutputTest < Minitest::Test
 
     structure.create_tree(file_path)
     output.build_output_tree(file_path)
-    haml_text = File.read("hamltest.haml")
-    html_text = File.read("htmltest.html")
+    haml_text = File.read("./test/hamltest.haml")
+    html_text = File.read("./test/htmltest.html")
 
     File.write("#{file_path}/source/posts/sweet_post.haml", haml_text)
 
@@ -152,5 +154,5 @@ class OutputTest < Minitest::Test
     assert_equal html_text, File.read("#{file_path}/output/posts/sweet_post.html")
   end
 
-  
+
 end

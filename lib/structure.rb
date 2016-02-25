@@ -29,7 +29,6 @@ class Structure
     FileUtils.cp_r(Dir.glob("../**/lib/*.erb"),"#{file_path}/source/layouts")
   end
 
-
   def create_post(file_path, post_title)
     pathway = "/source/posts/"
     File.new("#{file_path}#{pathway}#{post_title.join("_").downcase}.md","w+")
