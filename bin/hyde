@@ -2,6 +2,7 @@
 require 'filewatcher'
 require_relative '../lib/structure'
 require_relative '../lib/output'
+require 'pry'
 
 
 query = ARGV[0]
@@ -24,8 +25,8 @@ output = Output.new
       end
     end
   when "publish"
-    `bin/hyde build #{file_path}`
     `cd #{file_path}/output/`
+    binding.pry
     `git add . `
     `git commit -m 'updated'`
     `git push -u origin master`
