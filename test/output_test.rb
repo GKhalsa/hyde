@@ -90,7 +90,7 @@ class OutputTest < Minitest::Test
     structure.create_tree(file_path)
     output.build_output_tree(file_path)
     output.copy_non_markdown_files(file_path)
-    assert File.exist?("#{file_path}/output/css/main.css")
+    assert File.exist?("#{file_path}/output/css")
   end
 
   def test_html_is_formatted_with_template_styling_using_ERB
@@ -103,11 +103,13 @@ class OutputTest < Minitest::Test
     text = "# Some Markdown*"
     File.write("#{file_path}/source/pages/about.md", text)
     output.build_html_files(file_path)
-    assert_equal "<html>
+    assert_equal "
+
+<html>
 
   <head><title>Our Site</title></head>
 
-  <link rel=\"stylesheet\" type =\"text/css\" href=\"main.css\" >
+  <link rel=\"stylesheet\" type =\"text/css\" href=\"../css/main.css\" >
 
   <body>
     <h1 id=\"some-markdown\">Some Markdown*</h1>
@@ -117,5 +119,21 @@ class OutputTest < Minitest::Test
 </html>
 ", File.read("#{file_path}/output/pages/about.html")
   end
+
+  def test_sass_is_converted_into_css_ranames_to_css
+    if Dir.exist?(file_path)
+      FileUtils.remove_dir(file_path)
+    end
+
+    structure.create_tree(file_path)
+    output.build_output_tree(file_path)
+    sass_text = File.read("sasstest.sass")
+    css_text = File.read("csstest.css")
+
+    File.write("#{file_path}/source/sass/cool_format.sass", sass_text)
+
+    output.convert_sass_to_css(file_path)
+    assert_equal css_text, File.read("#{file_path}/output/css/cool_format.css")
+   end
 
 end
