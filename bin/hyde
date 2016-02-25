@@ -23,12 +23,12 @@ output = Output.new
         `bin/hyde build #{file_path}`
       end
     end
-  # when "autogitpush"
-  #   FileWatcher.new(["#{file_path}/output"]).watch() do |filename, event|
-  #     if(event == :changed)
-  #       output.push_to_github_pages("#{file_path}")
-  #     end
-  #   end
+  when "publish"
+
+    `cd #{file_path}output/`
+    `git add . `
+    `git commit -m 'updated'`
+    `git push -u origin master`
   else
     puts "Invalid Commmand"
   end

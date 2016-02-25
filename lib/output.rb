@@ -57,9 +57,5 @@ class Output
     Kramdown::Document.new(markdown_text).to_html
   end
 
-  # def push_to_github_pages(file_path)
-  #   `#{file_path}/output/ git add . `
-  #   `#{file_path}/output/ git commit -m 'auto-push'`
-  #   `#{file_path}/output/ git push -u origin master`
-  # end
+
 end
