@@ -52,6 +52,21 @@ class Output
     ERB.new(erb_template).result(binding)
   end
 
+<<<<<<< HEAD
+=======
+  def convert_sass_to_css(file_path)
+      Dir.glob("#{file_path}/**/*.sass") do |sass_file_path|
+        template = File.read(sass_file_path)
+        sass_engine = Sass::Engine.new(template)
+        output = sass_engine.to_css
+        binding.pry
+        css_file_path = sass_file_path.sub(/source/,"output").gsub(/sass/,"css")
+        File.write(css_file_path, output)
+      end
+  end
+
+
+>>>>>>> 2c82922a86c6a1b41d1befce87abeccd32ae7ae5
   def convert_html_from_markdown(file_path)
     markdown_text = File.read(file_path)
     Kramdown::Document.new(markdown_text).to_html

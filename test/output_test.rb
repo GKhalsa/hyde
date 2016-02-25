@@ -136,4 +136,19 @@ class OutputTest < Minitest::Test
     assert_equal css_text, File.read("#{file_path}/output/css/cool_format.css")
    end
 
+  def test_haml_is_coverted_to_html_when_called
+    if Dir.exist?(file_path)
+      FileUtils.remove_dir(file_path)
+    end
+
+    structure.create_tree(file_path)
+    output.build_output_tree(file_path)
+    haml_text = File.read("hamltest.haml")
+    http_text = File.read("htmltest.html")
+
+    File.write("#{file_path}/source/sass/cool_format.sass", sass_text)
+
+    output.convert_sass_to_css(file_path)
+    assert_equal css_text, File.read("#{file_path}/output/css/cool_format.css")
+
 end
