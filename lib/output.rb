@@ -61,7 +61,6 @@ class Output
       end
   end
 
-
   def convert_html_from_markdown(file_path)
     markdown_text = File.read(file_path)
     Kramdown::Document.new(markdown_text).to_html
