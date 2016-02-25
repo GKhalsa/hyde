@@ -56,7 +56,7 @@ class Output
         sass_engine = Sass::Engine.new(template)
         output = sass_engine.to_css
         binding.pry
-        css_file_path = sass_file_path.sub(/source/, "output").gsub(/sass/, "css")
+        css_file_path = sass_file_path.sub(/source/,"output").gsub(/sass/,"css")
         File.write(css_file_path, output)
       end
   end
