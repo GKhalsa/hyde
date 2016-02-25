@@ -24,8 +24,8 @@ output = Output.new
       end
     end
   when "publish"
-
-    `cd #{file_path}output/`
+    `bin/hyde build #{file_path}`
+    `cd #{file_path}/output/`
     `git add . `
     `git commit -m 'updated'`
     `git push -u origin master`
