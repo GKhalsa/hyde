@@ -61,6 +61,7 @@ class OutputTest < Minitest::Test
    end
 
   def test_takes_markdown_files_converts_to_html_and_writes_to_html_file_in_output
+    skip
     if Dir.exist?(file_path)
       FileUtils.remove_dir(file_path)
     end
@@ -92,7 +93,29 @@ class OutputTest < Minitest::Test
     assert File.exist?("#{file_path}/output/css/main.css")
   end
 
+  def test_html_is_formatted_with_template_styling_using_ERB
+    if Dir.exist?(file_path)
+      FileUtils.remove_dir(file_path)
+    end
 
+    structure.create_tree(file_path)
+    output.build_output_tree(file_path)
+    text = "# Some Markdown*"
+    File.write("#{file_path}/source/pages/about.md", text)
+    output.build_html_files(file_path)
+    assert_equal "<html>
+
+  <head><title>Our Site</title></head>
+
+  <link rel=\"stylesheet\" type =\"text/css\" href=\"main.css\" >
+
+  <body>
+    <h1 id=\"some-markdown\">Some Markdown*</h1>
+
+  </body>
+
+</html>
+", File.read("#{file_path}/output/pages/about.html")
+  end
 
 end
-#build_output => build output dirs and files/folders
