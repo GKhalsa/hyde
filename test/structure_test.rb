@@ -50,6 +50,10 @@ class StructureTest < Minitest::Test
     assert_raises(ArgumentError) { structure.create_tree("#{file_path}") }
   end
 
+  def date_time
+    Time.new.strftime('%Y-%m-%d')
+  end
+
   def test_new_post_creates_correctly_formatted_md_file
    if Dir.exist?(file_path)
      FileUtils.remove_dir(file_path)
@@ -57,7 +61,7 @@ class StructureTest < Minitest::Test
    structure.create_tree(file_path)
    structure.create_post(file_path, ["Juicy", "Post"])
    start_text =  "# *Juicy Post*\n\nYour content here"
-   assert_equal start_text, File.read("#{file_path}/source/posts/juicy_post.md")
+   assert_equal start_text, File.read("#{file_path}/source/posts/#{date_time}_juicy_post.md")
   end
 
 
