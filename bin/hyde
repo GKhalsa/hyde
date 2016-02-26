@@ -2,8 +2,10 @@
 require 'filewatcher'
 require_relative '../lib/structure'
 require_relative '../lib/output'
+require_relative '../lib/publish'
 require 'pry'
 
+include Publish
 
 query = ARGV[0]
 file_path = ARGV[1]
@@ -25,11 +27,7 @@ output = Output.new
       end
     end
   when "publish"
-    puts `cd #{file_path}/output/ && pwd`
-    puts `pwd`
-    `git add . `
-    `git commit -m 'updated'`
-    `git push -u origin master`
+    publish_to_git_page(file_path)
   else
     puts "Invalid Commmand"
   end
