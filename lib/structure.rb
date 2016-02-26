@@ -21,6 +21,7 @@ class Structure
     end
   end
 
+
   def create_files(file_path)
     files = %w(css/main.css index.md pages/about.md posts/welcome_to_hyde.md)
     files.each do |dir|
@@ -29,14 +30,13 @@ class Structure
     FileUtils.cp_r(Dir.glob("../**/lib/*.erb"),"#{file_path}/source/layouts")
   end
 
-  def create_post(file_path, post_title)
-    pathway = "/source/posts/"
-    File.new("#{file_path}#{pathway}#{post_title.join("_").downcase}.md","w+")
-    create_post_content(file_path, post_title)
+  def date_time
+    Time.new.strftime('%Y-%m-%d')
   end
 
-  def create_post_content(file_path, post_title)
+  def create_post(file_path, post_title)
     contents = "# *#{post_title.join(" ")}*\n\nYour content here"
-    File.write("#{file_path}/source/posts/#{post_title.join("_")}.md", contents)
+    pathway = "/source/posts/#{date_time}_"
+    File.write("#{file_path}#{pathway}#{post_title.join("_")}.md", contents)
   end
 end
