@@ -21,7 +21,6 @@ class Structure
     end
   end
 
-
   def create_files(file_path)
     files = %w(css/main.css index.md pages/about.md posts/welcome_to_hyde.md)
     files.each do |dir|
