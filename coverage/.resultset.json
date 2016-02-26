@@ -187,12 +187,9 @@
         null,
         1,
         1,
-        null,
-        null,
-        1,
-        1,
         1,
         null,
+        1,
         1,
         1,
         1,
@@ -203,7 +200,7 @@
         null
       ]
     },
-    "timestamp": 1456452465
+    "timestamp": 1456454196
   },
   "Unit Tests": {
     "coverage": {
